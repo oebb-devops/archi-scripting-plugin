@@ -27,3 +27,4 @@ Export-Package: com.archimatetool.script,
  com.archimatetool.script.views.file,
  com.archimatetool.script.views.scripts
 Automatic-Module-Name: com.archimatetool.script
+Import-Package: org.eclipse.ui.cheatsheets

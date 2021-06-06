@@ -18,17 +18,15 @@ import javax.script.ScriptException;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import com.archimatetool.editor.utils.PlatformUtils;
 import com.archimatetool.script.preferences.IPreferenceConstants;
-
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 
 /**
  * JS Provider
  */
-@SuppressWarnings("removal")
 public class JSProvider implements IScriptEngineProvider {
     
     public static String ID = "com.archimatetool.script.provider.js"; //$NON-NLS-1$

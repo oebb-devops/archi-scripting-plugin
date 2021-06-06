@@ -33,4 +33,8 @@ Bundle-ClassPath: .,
  lib/js-20.3.0.jar,
  lib/js-scriptengine-20.3.0.jar,
  lib/regex-20.3.0.jar,
- lib/truffle-api-20.3.0.jar
+ lib/truffle-api-20.3.0.jar,
+ lib/nashorn-core-15.1.1.jar,
+ lib/asm-9.0.jar,
+ lib/asm-util-9.0.jar,
+ lib/asm-commons-9.0.jar

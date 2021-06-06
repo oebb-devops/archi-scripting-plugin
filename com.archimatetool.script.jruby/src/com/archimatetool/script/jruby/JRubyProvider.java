@@ -31,14 +31,25 @@ public class JRubyProvider implements IScriptEngineProvider {
     @Override
     public void run(File file, ScriptEngine engine) throws IOException, ScriptException {
         // Init script
-        URL initURL = JRubyPlugin.INSTANCE.getBundle().getEntry("jruby/init.rb"); //$NON-NLS-1$
-        try(InputStreamReader initReader = new InputStreamReader(initURL.openStream());) {
-            engine.eval(initReader);
-        }
+        init(engine);
         
         // Evaluate the script
         try(FileReader scriptReader = new FileReader(file.getAbsolutePath())) {
             engine.eval(scriptReader);
+        }
+    }
+
+    @Override
+    public void run(String script, ScriptEngine engine) throws IOException, ScriptException {
+        init(engine);
+        engine.eval(script);
+    }
+    
+    // Initialize jArchi using the provided init.rb script
+    private void init(ScriptEngine engine) throws IOException, ScriptException {
+        URL initURL = JRubyPlugin.INSTANCE.getBundle().getEntry("jruby/init.rb"); //$NON-NLS-1$
+        try(InputStreamReader initReader = new InputStreamReader(initURL.openStream());) {
+            engine.eval(initReader);
         }
     }
 

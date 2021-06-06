@@ -99,8 +99,8 @@ public class ScriptsContextMenuContributionItem extends ContributionItem impleme
                         @Override
                         public void run() {
                             try {
-                                RunArchiScript runner = new RunArchiScript(file);
-                                runner.run();
+                                RunArchiScript runner = new RunArchiScript();
+                                runner.run(file);
                             }
                             catch(Exception ex) {
                                 MessageDialog.openError(null, Messages.ScriptsContextMenuContributionItem_0, ex.getMessage());

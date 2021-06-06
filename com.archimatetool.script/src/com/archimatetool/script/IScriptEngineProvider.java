@@ -46,6 +46,15 @@ public interface IScriptEngineProvider {
     void run(File file, ScriptEngine engine) throws IOException, ScriptException;
     
     /**
+     * Run the script in the given string
+     * @param script The script
+     * @param engine The engine to use. This is the one returned by createScriptEngine()
+     * @throws IOException
+     * @throws ScriptException
+     */
+    void run(String script, ScriptEngine engine) throws IOException, ScriptException;
+    
+    /**
      * @return the unique ID of this provider
      */
     String getID();

@@ -27,24 +27,41 @@ import com.archimatetool.script.views.console.ConsoleOutput;
  */
 @SuppressWarnings("nls")
 public class RunArchiScript {
-	private File file;
 
-	public RunArchiScript(File file) {
-		this.file = file;
+	public RunArchiScript() {
 	}
 	
-	public void run() {
-        // Get the provider for this file type
+	public void run(File file) {
 	    IScriptEngineProvider provider = IScriptEngineProvider.INSTANCE.getProviderForFile(file);
         
 	    if(provider == null) {
-	        throw new RuntimeException(NLS.bind("Script Provider not found for file: {0}", file)); //$NON-NLS-1$
-	    }
+            throw new RuntimeException(NLS.bind("Script Provider not found for file: {0}", file));
+        }
 	    
+	    run(provider, file);
+	}
+	
+	public void run(String script) {
+	    // TODO get a suitable provider for the current language
+	    IScriptEngineProvider provider = IScriptEngineProvider.INSTANCE.getProviderByID(JSProvider.ID);
+        
+	    if(provider == null) {
+            throw new RuntimeException("Script Provider not found for script");
+        }
+	    
+	    run(provider, script);
+    }
+	
+	private void run(IScriptEngineProvider provider, Object target) {
 	    ScriptEngine engine = provider.createScriptEngine();
 	    
 	    if(engine == null) {
-            throw new RuntimeException(NLS.bind("Script Engine not found for file: {0}", file)); //$NON-NLS-1$
+            if(target instanceof File) {
+                throw new RuntimeException(NLS.bind("Script Engine not found for file: {0}", target));
+            }
+            else {
+                throw new RuntimeException("Script Engine not found for script");
+            }
         }
 	    
 	    // Set the script engine class name in a System Property in case we need to know what the engine is elsewhere
@@ -57,17 +74,23 @@ public class RunArchiScript {
         ConsoleOutput.start();
 
         // Initialise CommandHandler
-        CommandHandler.init(FileUtils.getFileNameWithoutExtension(file));
+        CommandHandler.init(target instanceof File ? FileUtils.getFileNameWithoutExtension((File)target) : "Local Script");
 
         // Initialise RefreshUIHandler
         RefreshUIHandler.init();
 
         try {
-            if(ScriptFiles.isLinkedFile(file)) {
-                file = ScriptFiles.resolveLinkFile(file);
+            if(target instanceof File) {
+                File file = (File)target;
+                if(ScriptFiles.isLinkedFile(file)) {
+                    file = ScriptFiles.resolveLinkFile(file);
+                }
+                provider.run(file, engine);
             }
-            provider.run(file, engine);
-        }
+            else {
+                provider.run((String)target, engine);
+            }
+         }
         catch(Throwable ex) {
             error(ex);
         }

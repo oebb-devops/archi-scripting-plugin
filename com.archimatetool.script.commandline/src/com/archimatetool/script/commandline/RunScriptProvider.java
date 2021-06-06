@@ -49,8 +49,8 @@ public class RunScriptProvider extends AbstractCommandLineProvider {
         
         File scriptFile = new File(sFile);
 
-        RunArchiScript runner = new RunArchiScript(scriptFile);
-        runner.run();
+        RunArchiScript runner = new RunArchiScript();
+        runner.run(scriptFile);
     }
     
     @Override

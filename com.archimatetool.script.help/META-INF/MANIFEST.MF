@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: jArchi Help
+Bundle-SymbolicName: com.archimatetool.script.help;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Archi
+Eclipse-BundleShape: dir
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.equinox.http.jetty,
+ org.eclipse.help.ui,
+ org.eclipse.help.webapp
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: com.archimatetool.script.help
+Bundle-ActivationPolicy: lazy

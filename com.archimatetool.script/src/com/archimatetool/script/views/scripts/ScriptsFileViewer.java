@@ -41,6 +41,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
 import com.archimatetool.editor.actions.AbstractDropDownAction;
 import com.archimatetool.editor.utils.PlatformUtils;
@@ -91,6 +92,9 @@ extends AbstractFileView  {
         
         // Listen to Prefs
         ArchiScriptPlugin.INSTANCE.getPreferenceStore().addPropertyChangeListener(prefsListener);
+        
+        // Register Help Context
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(getViewer().getControl(), HELP_ID);
     }
     
     @Override
